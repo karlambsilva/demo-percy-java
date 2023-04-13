@@ -11,9 +11,9 @@ install: $(NPM)
 clean:
 	rm -rf $$(cat .gitignore)
 
-serve:
-	mvn package
-	java -cp target/example-percy-java-selenium-1.0-SNAPSHOT.jar io.percy.examplepercyjavaselenium.App
+#serve:
+#	mvn package
+#	java -cp target/example-percy-java-selenium-1.0-SNAPSHOT.jar io.percy.examplepercyjavaselenium.App
 
 test: install
 	$(NPM)/percy exec -- mvn test
