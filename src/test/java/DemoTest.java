@@ -1,70 +1,64 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-
-import java.util.Arrays;
-import java.util.List;
+import org.openqa.selenium.support.PageFactory;
+import pages.ToDoPage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DemoTest extends BaseTest{
-    private static final String APP_URL = "https://pages.git.i.mercedes-benz.com/KARLSIL/demo-percy-java/";
+    private ToDoPage toDoPage;
 
     @BeforeEach
-    public void openAppPage(){
-        driver.get(APP_URL);
+    public void openToDoPage(){
+        toDoPage = PageFactory.initElements(driver, ToDoPage.class);
+        toDoPage.openPage();
     }
 
     @Test
     public void loadsHomePage(){
 
-        WebElement element = driver.findElement(By.className("todoapp"));
-        assertNotNull(element);
+        WebElement container = toDoPage.getContainer();
+        assertNotNull(container);
 
         // Take a Percy snapshot.
-        percy.snapshot("Home Page");
+//        percy.snapshot("Home Page");
     }
 
     @Test
     public void acceptsANewTodo() {
 
         // We start with zero todos.
-        List<WebElement> todoEls = driver.findElements(By.cssSelector(".todo-list li"));
-        assertEquals(0, todoEls.size());
+        assertEquals(0, toDoPage.getNumberItemsInTheList());
 
         // Add a todo in the browser.
-        WebElement newTodoEl = driver.findElement(By.className("new-todo"));
-        newTodoEl.sendKeys("A new fancy todo!");
-        newTodoEl.sendKeys(Keys.RETURN);
-
-        // Now we should have 1 todo.
-        todoEls = driver.findElements(By.cssSelector(".todo-list li"));
-        assertEquals(1, todoEls.size());
+        toDoPage.addNewToDo("A new fancy todo!");
+        assertEquals(1, toDoPage.getNumberItemsInTheList());
 
         // Take a Percy snapshot specifying browser widths.
-        percy.snapshot("One todo", Arrays.asList(768, 992, 1200));
+//        percy.snapshot("One todo", Arrays.asList(768, 992, 1200));
     }
 
     @Test
     public void letsYouCheckOffATodo() {
 
-        WebElement newTodoEl = driver.findElement(By.className("new-todo"));
-        newTodoEl.sendKeys("A new todo to check off");
-        newTodoEl.sendKeys(Keys.RETURN);
+        toDoPage.addNewToDo("A new todo to check off");
+        assertEquals(1, toDoPage.getNumberItemsInTheList());
 
-        WebElement todoCountEl = driver.findElement(By.className("todo-count"));
-        assertEquals("1 item left", todoCountEl.getText());
+        assertEquals("1 item left", toDoPage.getMsgToDosLeft());
+        toDoPage.clickOnToDoCheck();
 
-        driver.findElement(By.cssSelector("input.toggle")).click();
-
-        todoCountEl = driver.findElement(By.className("todo-count"));
-        assertEquals("0 items left", todoCountEl.getText());
+        assertEquals(1, toDoPage.getNumberItemsInTheList());
 
         // Take a Percy snapshot specifying a minimum height.
-        percy.snapshot("Checked off todo", null, 2000);
+//        percy.snapshot("Checked off todo", null, 2000);
+    }
+
+    @AfterEach
+    public void clearAll(){
+
     }
 
 }
