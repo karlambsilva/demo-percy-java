@@ -58,9 +58,4 @@ public class DemoTest extends BaseTest{
         percy.snapshot("Checked off todo", null, 2000);
     }
 
-    @AfterEach
-    public void clearAll(){
-
-    }
-
 }
