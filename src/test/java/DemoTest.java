@@ -60,7 +60,6 @@ public class DemoTest extends BaseTest{
 
     @AfterEach
     public void clearAll(){
-
     }
 
 }
