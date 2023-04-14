@@ -7,3 +7,7 @@ Project based on the [Percy Example](https://github.com/percy/example-percy-java
 1. There is already a [page](https://karlambsilva.github.io/demo-percy-java/index-with-changes.html) with some changes already in place to make the build fail;
 1. **Main** is the base branch for the comparison;
 1. The site used on the tests are available on src/main/resources and deployed to GitHub Pages.
+
+## Limitations or Bugs? (Needs more investigation)
+1. Take screenshot of a specific scope is not working.
+1. How to proper use the ignored regions?
