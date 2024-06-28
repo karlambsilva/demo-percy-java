@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ToDoPage extends BasePage{
 
-    private static final String APP_URL = "https://karlambsilva.github.io/demo-percy-java/";
+    private static final String APP_URL = "https://karlambsilva.github.io/demo-percy-java/index-with-changes.html";
 
     @FindBy(css = ".todoapp")
     private WebElement container;
