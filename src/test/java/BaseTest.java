@@ -14,7 +14,7 @@ public class BaseTest {
     public void setup(){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-        options.setHeadless(true);
+        options.addArguments("--headless=new");
 
         driver = new ChromeDriver(options);
         percy = new Percy(driver);
